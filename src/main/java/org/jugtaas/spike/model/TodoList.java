@@ -1,6 +1,5 @@
-package org.jugtaa.spike.model;
+package org.jugtaas.spike.model;
 
-import java.util.Collections;
 import java.util.List;
 
 /**

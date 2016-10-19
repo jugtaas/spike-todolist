@@ -1,14 +1,11 @@
-package org.jugtaa.spike.controllers;
+package org.jugtaas.spike.controllers;
 
-import org.jugtaa.spike.model.Todo;
-import org.jugtaa.spike.model.TodoFactory;
-import org.jugtaa.spike.model.TodoList;
-import org.jugtaa.spike.model.TodoStatus;
-import org.jugtaa.spike.service.TodoService;
+import org.jugtaas.spike.model.Todo;
+import org.jugtaas.spike.model.TodoFactory;
+import org.jugtaas.spike.model.TodoList;
+import org.jugtaas.spike.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 /**
  * Created by mario on 13/10/2016.

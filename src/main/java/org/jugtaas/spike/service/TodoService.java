@@ -1,8 +1,8 @@
-package org.jugtaa.spike.service;
+package org.jugtaas.spike.service;
 
-import org.jugtaa.spike.model.Todo;
-import org.jugtaa.spike.model.TodoList;
-import org.jugtaa.spike.model.TodoStatus;
+import org.jugtaas.spike.model.Todo;
+import org.jugtaas.spike.model.TodoList;
+import org.jugtaas.spike.model.TodoStatus;
 
 import java.util.Date;
 
