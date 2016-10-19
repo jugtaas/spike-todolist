@@ -17,12 +17,6 @@ public class TodoController {
 
     public TodoController(TodoService srv) {
         this.srv = srv;
-
-        try {
-            srv.save(TodoFactory.createTodo("This is my first task"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private boolean save(Todo todo) {
@@ -71,12 +65,12 @@ public class TodoController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/todo")
-    public boolean update(@RequestBody Todo todo) {
+    public Boolean update(@RequestBody Todo todo) {
         return save(todo);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/todo/{text}")
-    public boolean delete(@PathVariable("text") String text) {
+    public Boolean delete(@PathVariable("text") String text) {
         return srv.delete(text);
     }
 }
