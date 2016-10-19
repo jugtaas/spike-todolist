@@ -6,10 +6,19 @@ import java.util.Date;
  * Created by mario on 16/10/2016.
  */
 public class Todo {
+    private Long id;
     private String text;
     private TodoStatus status;
     private Date created;
     private Date done;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getText() {
         return text;
