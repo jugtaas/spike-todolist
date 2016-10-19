@@ -154,7 +154,8 @@ function App() {
             $.ajax('/todo', {
                 'method': "PUT",
                 'dataType': 'json',
-                'data': todo,
+                'data': JSON.stringify(todo),
+                'contentType': 'application/json',
                 'success': function(req, stat) {
                     if (stat === 'success') {
                         console.dir(req);
