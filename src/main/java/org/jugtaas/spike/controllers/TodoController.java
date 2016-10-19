@@ -44,7 +44,7 @@ public class TodoController {
         return srv.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/todo/status/{status}")
+/*    @RequestMapping(method = RequestMethod.GET, value = "/todo/status/{status}")
     public TodoList listFilterByStatus(@PathVariable(required = false) TodoStatus status) {
         System.out.println("list method " + status);
 
@@ -64,9 +64,11 @@ public class TodoController {
         }
 
         return srv.findAll();
-    }
+    }*/
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/todo")
+    @RequestMapping(method = RequestMethod.PUT,
+            value = "/todo",
+            consumes = "application/json")
     public boolean create(@RequestBody Todo todo) {
         return save(todo);
     }
