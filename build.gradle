@@ -1,4 +1,4 @@
-group 'org.jugtaa.spike'
+group 'org.jugtaas.spike'
 version '1.0-SNAPSHOT'
 
 buildscript {
