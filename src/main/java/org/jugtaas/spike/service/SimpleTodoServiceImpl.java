@@ -14,11 +14,11 @@ import java.util.TimeZone;
  * Created by mario on 16/10/2016.
  */
 @Component(value = "TodoService")
-public class SimpleTodoService implements TodoService {
+public class SimpleTodoServiceImpl implements TodoService {
     private Calendar cal;
     private TodoList todoList;
 
-    public SimpleTodoService() {
+    public SimpleTodoServiceImpl() {
         cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"));
         todoList = new TodoList();
         todoList.setTodoList(new ArrayList<>());
