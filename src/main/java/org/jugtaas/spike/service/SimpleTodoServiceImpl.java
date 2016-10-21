@@ -13,7 +13,7 @@ import java.util.TimeZone;
 /**
  * Created by mario on 16/10/2016.
  */
-@Component(value = "TodoService")
+// @Component(value = "TodoService")
 public class SimpleTodoServiceImpl implements TodoService {
     private Calendar cal;
     private TodoList todoList;
@@ -36,7 +36,7 @@ public class SimpleTodoServiceImpl implements TodoService {
 
         for (Todo t : todoList.getTodoList()) {
             if (status.equals(t.getStatus())) {
-                nl.getTodoList().add(t);
+                nl.add(t);
             }
         }
 
@@ -67,7 +67,7 @@ public class SimpleTodoServiceImpl implements TodoService {
             Date todoCreated = t.getCreated();
             if (dayEnd.after(todoCreated) &&
                     dayStart.before(todoCreated)) {
-                nl.getTodoList().add(t);
+                nl.add(t);
             }
         }
 
@@ -91,7 +91,7 @@ public class SimpleTodoServiceImpl implements TodoService {
     @Override
     public void save(Todo todo) throws Exception {
         if (!todoList.contains(todo)) {
-            todoList.getTodoList().add(todo);
+            todoList.add(todo);
         } else {
             for (Todo _todo : todoList.getTodoList()) {
                 if (todo.getText().equals(_todo.getText())) {

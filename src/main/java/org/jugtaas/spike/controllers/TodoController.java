@@ -1,16 +1,17 @@
 package org.jugtaas.spike.controllers;
 
 import org.jugtaas.spike.model.Todo;
-import org.jugtaas.spike.model.TodoFactory;
 import org.jugtaas.spike.model.TodoList;
 import org.jugtaas.spike.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by mario on 13/10/2016.
  */
 @RestController
+@ComponentScan(basePackages = {"org.jugtaas.spike"})
 public class TodoController {
     @Autowired
     private TodoService srv;

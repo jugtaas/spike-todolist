@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -36,10 +34,12 @@ public class TodoControllerTest {
     private static final String baseUrl = "http://localhost";
 
     @Test
-    public void createTodoTest() {
+    public void createAndGetTodoTest() {
         String serviceUri = baseUrl + ":" + port + "/todo";
 
-        Todo todo = TodoFactory.createTodo("This is my first task");
+        String todoText = "This is my first task";
+
+        Todo todo = TodoFactory.createTodo(todoText);
 
         this.restTemplate.put(serviceUri, todo);
 
@@ -47,62 +47,48 @@ public class TodoControllerTest {
 
         TodoList myTodoList = (TodoList) response.getBody();
 
-        assertThat(myTodoList.getTodoList().size()).isEqualTo(1);
+        assertThat(myTodoList.size()).isEqualTo(1);
 
-        System.out.println("todos: #" + myTodoList.getTodoList().size());
+        assertThat(myTodoList.getTodoList().get(0).getText()).isEqualTo(todoText);
+
+        this.restTemplate.delete(serviceUri + "/" + todoText);
     }
 
     @Test
-    @DependsOn(value = "createTodoTest")
     public void updateTodoTest() {
         String serviceUri = baseUrl + ":" + port + "/todo";
 
-        Todo todo = TodoFactory.createTodo("This is my first task");
-        todo.setStatus(TodoStatus.DONE);
-        todo.setDone(new Date());
-
-        ResponseEntity<Boolean> postResponse = this.restTemplate.postForEntity(serviceUri, todo, Boolean.class, new HashMap<>());
-
-        assertThat(postResponse.getBody()).isTrue();
-        
-        ResponseEntity<TodoList> response = this.restTemplate.getForEntity(serviceUri, TodoList.class);
-
-        TodoList myTodoList = (TodoList) response.getBody();
-
-        assertThat(myTodoList.getTodoList().size()).isEqualTo(1);
-
-        System.out.println("todos: #" + myTodoList.getTodoList().size());
-    }
-
-    @Test
-    public void getTodoListTest() {
-        String serviceUri = baseUrl + ":" + port + "/todo";
-
-        Todo todo = TodoFactory.createTodo("This is my first task");
+        String todoText = "This is my first task";
+        Todo todo = TodoFactory.createTodo(todoText);
 
         this.restTemplate.put(serviceUri, todo);
 
-        ResponseEntity<TodoList> response = this.restTemplate.getForEntity(serviceUri, TodoList.class);
+        todo.setStatus(TodoStatus.DONE.name());
+        todo.setDone(new Date());
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        ResponseEntity<Boolean> postResponse = this.restTemplate.postForEntity(serviceUri, todo,
+                Boolean.class, new HashMap<>());
 
-        TodoList myTodoList = (TodoList) response.getBody();
+        assertThat(postResponse.getBody()).isTrue();
 
-        assertThat(myTodoList.getTodoList().size()).isEqualTo(1);
+        this.restTemplate.delete(serviceUri + "/" + todoText);
     }
 
     @Test
     public void deleteTodoTest() {
         String serviceUri = baseUrl + ":" + port + "/todo";
 
-        this.restTemplate.delete(serviceUri + "/This is my first task");
+        String todoText = "This is my first task";
+        Todo todo = TodoFactory.createTodo(todoText);
+
+        this.restTemplate.put(serviceUri, todo);
+
+        this.restTemplate.delete(serviceUri + "/" + todoText);
 
         ResponseEntity<TodoList> response = this.restTemplate.getForEntity(serviceUri, TodoList.class);
 
         TodoList myTodoList = (TodoList) response.getBody();
 
-        assertThat(myTodoList.getTodoList().size()).isEqualTo(0);
-
-        System.out.println("todos: #" + myTodoList.getTodoList().size());
+        assertThat(myTodoList.size()).isEqualTo(0);
     }
 }

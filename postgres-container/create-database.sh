@@ -1,16 +1,19 @@
 #!/bin/bash
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
-    CREATE USER jugtaas;
-    CREATE DATABASE jugtaas;
+    CREATE ROLE jugtaas WITH LOGIN ENCRYPTED PASSWORD 'saatguj2016';
+    ALTER ROLE jugtaas CREATEROLE CREATEDB;
+    SET ROLE jugtaas;
+    CREATE DATABASE jugtaas OWNER jugtaas;
     GRANT ALL PRIVILEGES ON DATABASE jugtaas TO jugtaas;
     \connect jugtaas;
-    CREATE TYPE todo_status AS ENUM ('CREATED', 'WORK_IN_PROGRES', 'SUSPENDED', 'DONE');
     CREATE TABLE IF NOT EXISTS todo (
         id bigserial PRIMARY KEY,
-        text character(1024) NOT NULL UNIQUE,
-        status todo_status NOT NULL,
+        text varchar(1024) NOT NULL UNIQUE,
+        status varchar(15) NOT NULL,
         created timestamp NOT NULL,
         done timestamp
      );
 EOSQL
+
+# docker build . --rm -t todo-postgresql

@@ -1,15 +1,30 @@
 package org.jugtaas.spike.model;
 
+import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Date;
 
 /**
  * Created by mario on 16/10/2016.
  */
+@Entity
+@Table(name = "todo")
 public class Todo {
+    @Id
+    @SequenceGenerator(name="hbn_todo_id_seq", sequenceName="todo_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hbn_todo_id_seq")
     private Long id;
+
+    @Column(name = "text")
     private String text;
-    private TodoStatus status;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "created")
     private Date created;
+
+    @Column(name = "done", nullable = true)
     private Date done;
 
     public Long getId() {
@@ -28,11 +43,11 @@ public class Todo {
         this.text = text;
     }
 
-    public TodoStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(TodoStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

@@ -17,7 +17,7 @@ public class TodoFactory {
     public static Todo createTodo(String text) {
         Todo t = new Todo();
         t.setCreated(getDate());
-        t.setStatus(TodoStatus.CREATED);
+        t.setStatus(TodoStatus.CREATED.name());
         t.setText(text);
         return t;
     }
