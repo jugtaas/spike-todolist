@@ -6,6 +6,7 @@ import org.jugtaas.spike.model.TodoList;
 import org.jugtaas.spike.model.TodoRepository;
 import org.jugtaas.spike.model.TodoStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * Created by mario on 20/10/2016.
  */
 @Service(value = "TodoService")
+@PropertySource("classpath:/config/application.properties")
 public class JpaTodoServiceImpl implements TodoService {
 
     private static final Logger LOG = Logger.getLogger(JpaTodoServiceImpl.class);
