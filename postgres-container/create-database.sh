@@ -6,7 +6,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
     SET ROLE jugtaas;
     CREATE DATABASE jugtaas OWNER jugtaas;
     GRANT ALL PRIVILEGES ON DATABASE jugtaas TO jugtaas;
-    \connect jugtaas;
+    \connect jugtaas jugtaas;
     CREATE TABLE IF NOT EXISTS todo (
         id bigserial PRIMARY KEY,
         text varchar(1024) NOT NULL UNIQUE,
