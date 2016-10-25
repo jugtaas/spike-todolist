@@ -65,13 +65,21 @@ public class TodoController {
         return save(todo);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/todo")
+    @RequestMapping(method = RequestMethod.POST,
+            value = "/todo",
+            consumes = "application/json")
     public Boolean update(@RequestBody Todo todo) {
         return save(todo);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/todo/{text}")
-    public Boolean delete(@PathVariable("text") String text) {
-        return srv.delete(text);
+    @RequestMapping(method = RequestMethod.GET, value = "/{todo}")
+    public Todo findOne(@PathVariable("todo") String todo) {
+        Todo toRet = srv.findOne(todo);
+        return toRet;
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{todo}")
+    public Boolean delete(@PathVariable("todo") String todo) {
+        return srv.delete(todo);
     }
 }
