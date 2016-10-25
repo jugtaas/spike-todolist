@@ -39,29 +39,32 @@ function App() {
 	}
 
 	function TodoList() {
-		this.table = $("<table></table>");
-		this.head = $("<thead></thead>");
-		this.body = $("<tbody></tbody>");
-
-		let tr = $("<tr></tr>");
-
-		let th = $("<th></th>");
-
-		th.html("My TODO list");
-        th.append($("<button class=\"plus\">+</button>"));
-
-		th.attr("colspan", 3);
-
-		tr.append(th);
-
-		this.head.append(tr);
-
-		this.table.append(this.head);
-		this.table.append(this.body);
-		appDiv.append(this.table);
+		this.table = appDiv.find('table');
+		this.head = this.table.find('thead');
+		this.body = this.table.find('tbody');
 
 		this.bindEventHandlers();
 	}
+
+    function updateTodo(todo) {
+        $.ajax({
+            'url': '/todo',
+            'method': 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+             },
+            'data': JSON.stringify(todo),
+            'success': function (req, sts) {
+                if (sts == 'success') {
+                   console.log('update ' + req);
+                }
+            },
+            'error': function (err) {
+                console.dir(err);
+            }
+        });
+    }
 
 	TodoList.prototype.addRow = function (todo) {
 		let row = $("<tr></tr>");
@@ -72,29 +75,58 @@ function App() {
 
 		let checkbox = $("<input type=\"checkbox\" />");
 
+        if (todo.id) {
+            checkbox.data('id', todo.id)
+        }
+
 		switch (todo.status) {
-			case "CREATED":
+			case 'CREATED':
 			    let _diff = ((new Date())-(new Date(parseInt(todo.created, 10))));
 			    if (isNaN(_diff)) {
 			        _diff = parseInt(todo.created, 10);
 			    }
-				checkbox.attr("title", "Created " + _diff);
+				checkbox.attr('title', 'Created ' + _diff);
 
 				td.append(checkbox);
 
                 checkbox.click(function (ev) {
                     let _status = checkbox.data();
                     if (_status.done) {
-                        checkbox.data({'done': undefined});
+                        checkbox.data('done', undefined);
                     } else {
-                        checkbox.data({'done': (new Date()).getTime()});
+                        checkbox.data('done', (new Date()).getTime());
                     }
+                    let todo = {
+                        'id': checkbox.data('id'),
+                        'status': (checkbox.data('done') ? 'DONE' : 'CREATED'),
+                        'done': checkbox.data('done')
+                    };
                     checkbox.parent().next().toggleClass('tododone');
+                    if (todo.id === undefined) {
+                        $.ajax({
+                            'url': '/todo/' + checkbox.parent().next().text(),
+                            'method': 'GET',
+                            'success': function (req, sts) {
+                                if (sts === 'success') {
+                                    checkbox.data('id', req.id);
+                                    todo.id = req.id;
+                                    updateTodo(todo);
+                                } else {
+                                   // something here
+                                }
+                            },
+                            "error": function (err) {
+                                console.log(err);
+                            }
+                        });
+                    } else {
+                        updateTodo(todo);
+                    }
                 });
 
 				break;
 
-			case "DONE":
+			case 'DONE':
 				checkbox.attr("checked", true);
 				checkbox.attr("disabled", true);
 				checkbox.attr("title", "Done " + (new Date(parseInt(todo.done, 10))));
@@ -174,10 +206,7 @@ function App() {
 
     TodoList.prototype.showText = function () {
         if (!this.textInput) {
-            this.textInput = $('<span class="hide"><input type="text" id="todo_text" placeholder="Insert a task and pres Add" value=""/>&nbsp;<button>Add</button></span>');
-            this.textInput.css({'top': -100, 'left': 0, 'position': 'absolute'});
-
-            $('body').append(this.textInput);
+            this.textInput = $('span.hide');
 
             this.textInput.find('button').click(addTodoHandler);
             this.textInput.find('input').keypress(function(ev){
