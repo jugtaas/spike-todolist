@@ -19,7 +19,8 @@ th {
 
 td {
     line-height: 0.5em;
-    font-size: 14px;
+    font-size: 18px;
+    padding-left: 22px;
 }
 
 li {
@@ -48,4 +49,11 @@ li {
 .tododone {
     font-weight: italic;
     text-decoration: line-through;
+}
+
+.hide {
+    display: none;
+    top: -100px,
+    left: 0px,
+    position: absolute
 }
