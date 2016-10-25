@@ -80,7 +80,21 @@ public class JpaTodoServiceImpl implements TodoService {
                 entityManager.merge(dbTodo);
             }
         } else {
-            entityManager.merge(todo);
+            Todo dbTodo = todoRepository.findOne(todo.getId());
+            if (dbTodo != null) {
+                if (todo.getText() != null &&
+                        !dbTodo.getText().equals(todo.getText())) {
+                    dbTodo.setText(todo.getText());
+                }
+                if (todo.getStatus() != null &&
+                        !dbTodo.getStatus().equals(todo.getStatus())) {
+                    dbTodo.setStatus(todo.getStatus());
+                }
+                dbTodo.setDone(todo.getDone());
+                entityManager.merge(dbTodo);
+            } else {
+                LOG.warn("Could not save todo!");
+            }
         }
     }
 
