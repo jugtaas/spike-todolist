@@ -10,7 +10,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
     CREATE TABLE IF NOT EXISTS todo (
         id bigserial PRIMARY KEY,
         text varchar(1024) NOT NULL UNIQUE,
-        status varchar(15) NOT NULL,
+        status varchar(20) NOT NULL,
         created timestamp NOT NULL,
         done timestamp
      );
