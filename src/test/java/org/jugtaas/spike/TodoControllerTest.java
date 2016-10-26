@@ -51,7 +51,14 @@ public class TodoControllerTest {
 
         assertThat(myTodoList.getTodoList().get(0).getText()).isEqualTo(todoText);
 
-        this.restTemplate.delete(serviceUri + "/" + todoText);
+        // cleanup
+        this.restTemplate.delete(baseUrl + ":" + port + "/" + todoText);
+
+        response = this.restTemplate.getForEntity(serviceUri, TodoList.class);
+
+        myTodoList = (TodoList) response.getBody();
+
+        assertThat(myTodoList.size()).isEqualTo(0);
     }
 
     @Test
@@ -71,7 +78,7 @@ public class TodoControllerTest {
 
         assertThat(postResponse.getBody()).isTrue();
 
-        this.restTemplate.delete(serviceUri + "/" + todoText);
+        this.restTemplate.delete(baseUrl + ":" + port + "/" + todoText);
     }
 
     @Test
@@ -83,7 +90,7 @@ public class TodoControllerTest {
 
         this.restTemplate.put(serviceUri, todo);
 
-        this.restTemplate.delete(serviceUri + "/" + todoText);
+        this.restTemplate.delete(baseUrl + ":" + port + "/" + todoText);
 
         ResponseEntity<TodoList> response = this.restTemplate.getForEntity(serviceUri, TodoList.class);
 
