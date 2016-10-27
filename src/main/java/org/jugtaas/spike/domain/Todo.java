@@ -1,7 +1,6 @@
 package org.jugtaas.spike.model;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.util.Date;
 
 /**

@@ -1,9 +1,8 @@
 package org.jugtaas.spike.service;
 
-import org.jugtaas.spike.model.Todo;
-import org.jugtaas.spike.model.TodoList;
-import org.jugtaas.spike.model.TodoStatus;
-import org.springframework.stereotype.Component;
+import org.jugtaas.spike.domain.Todo;
+import org.jugtaas.spike.domain.TodoList;
+import org.jugtaas.spike.domain.TodoStatus;
 
 import java.util.ArrayList;
 import java.util.Calendar;

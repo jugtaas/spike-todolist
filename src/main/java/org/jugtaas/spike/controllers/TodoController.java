@@ -1,7 +1,7 @@
 package org.jugtaas.spike.controllers;
 
-import org.jugtaas.spike.model.Todo;
-import org.jugtaas.spike.model.TodoList;
+import org.jugtaas.spike.domain.Todo;
+import org.jugtaas.spike.domain.TodoList;
 import org.jugtaas.spike.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;

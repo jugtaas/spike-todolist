@@ -1,9 +1,9 @@
 package org.jugtaas.spike;
 
-import org.jugtaas.spike.model.Todo;
-import org.jugtaas.spike.model.TodoFactory;
-import org.jugtaas.spike.model.TodoList;
-import org.jugtaas.spike.model.TodoStatus;
+import org.jugtaas.spike.domain.Todo;
+import org.jugtaas.spike.domain.TodoFactory;
+import org.jugtaas.spike.domain.TodoList;
+import org.jugtaas.spike.domain.TodoStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
