@@ -1,4 +1,4 @@
-package org.jugtaas.spike.model;
+package org.jugtaas.spike.domain;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -1,4 +1,4 @@
-package org.jugtaas.spike.model;
+package org.jugtaas.spike.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

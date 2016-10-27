@@ -1,4 +1,4 @@
-package org.jugtaas.spike.model;
+package org.jugtaas.spike.domain;
 
 import javax.persistence.*;
 import java.util.Date;

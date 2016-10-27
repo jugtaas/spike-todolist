@@ -1,4 +1,4 @@
-package org.jugtaas.spike.model;
+package org.jugtaas.spike.domain;
 
 import java.util.Calendar;
 import java.util.Date;
