@@ -42,8 +42,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
     }
+
     compile("org.springframework.boot:spring-boot-starter-jetty")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
+
     compile("postgresql:postgresql:9.1-901-1.jdbc4")
     // end::jetty[]
     // tag::actuator[]
@@ -64,6 +66,10 @@ task todolistDocker(dependsOn: 'war', type: Docker) {
     addFile("build/libs/spike-todolist-1.0-SNAPSHOT.war", "/var/lib/jetty/webapps/ROOT.war")
     exposePort(8080)
     defaultCommand(["java","-jar","/usr/local/jetty/start.jar"])
+}
+
+jettyRunWar {
+    contextPath = '/'
 }
 
 jettyRun {
