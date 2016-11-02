@@ -38,19 +38,16 @@ repositories {
 }
 
 dependencies {
-    // tag::jetty[]
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
     }
-
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa") {
+        exclude module: "tomcat-juli"
+    }
 
     compile("postgresql:postgresql:9.1-901-1.jdbc4")
-    // end::jetty[]
-    // tag::actuator[]
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    // end::actuator[]
+
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("junit:junit")
 }
