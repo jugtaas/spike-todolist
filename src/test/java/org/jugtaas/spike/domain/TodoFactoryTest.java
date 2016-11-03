@@ -54,7 +54,7 @@ public class TodoFactoryTest {
 
         assertThat(td.getCreated()).isBetween(fiveMinutesAgo, nowTime);
 
-        assertThat(td.getStatus()).isEqualTo("CREATED");
+        assertThat(td.getStatus()).isEqualTo(TodoStatus.CREATED.name());
 
         assertThat(td.getDone()).isNull();
     }
